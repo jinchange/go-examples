@@ -30,3 +30,7 @@ func TestSetDemo(t *testing.T) {
 func TestJsonDemo(t *testing.T) {
 	basic.JsonDemo()
 }
+
+func TestConcurrent(t *testing.T) {
+	basic.GoroutineDemo()
+}
