@@ -34,3 +34,7 @@ func TestJsonDemo(t *testing.T) {
 func TestConcurrent(t *testing.T) {
 	basic.GoroutineDemo()
 }
+
+func TestTrieTree(t *testing.T) {
+	basic.TestTrieDemo()
+}
