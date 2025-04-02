@@ -1,12 +1,15 @@
 package gee
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type node struct {
 	pattern  string  // 待匹配路由，例如 /p/:lang
-	part     string  // 路由中的一部分，例如 :lang
+	part     string  // 路由按/切割后的数组，例如 :lang
 	children []*node // 子节点，例如 [doc, tutorial, intro]
-	isWild   bool    // 是否精确匹配，part 含有 : 或 * 时为true
+	isWild   bool    // 是否模糊匹配，part 含有 : 或 * 时为true
 }
 
 // 第一个匹配成功的节点，用于插入
@@ -64,4 +67,25 @@ func (n *node) search(parts []string, height int) *node {
 	}
 
 	return nil
+}
+
+// Only one * is allowed
+// 解析pattern返回parts
+func parsePattern(pattern string) []string {
+	vs := strings.Split(pattern, "/")
+
+	parts := make([]string, 0)
+	for _, item := range vs {
+		if item != "" {
+			parts = append(parts, item)
+			if item[0] == '*' {
+				break
+			}
+		}
+	}
+	return parts
+}
+
+func TestPrefixTree() {
+	fmt.Println(parsePattern("/abc/efg/*"))
 }
