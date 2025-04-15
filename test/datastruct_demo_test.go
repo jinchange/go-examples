@@ -2,7 +2,6 @@ package test
 
 import (
 	"go-examples/basic"
-	"go-examples/gee"
 	"testing"
 )
 
@@ -38,5 +37,9 @@ func TestConcurrent(t *testing.T) {
 
 func TestTrieTree(t *testing.T) {
 	//basic.TestTrieDemo()
-	gee.TestPrefixTree()
+
+}
+
+func TestTimerDemo(t *testing.T) {
+	basic.TimerDemo()
 }

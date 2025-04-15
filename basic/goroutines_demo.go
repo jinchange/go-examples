@@ -1,6 +1,7 @@
 package basic
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -88,6 +89,21 @@ func waitGroupDemo() {
 	}
 }
 
+func contextDemo() {
+	f := func(ctx context.Context, k string) {
+		if v := ctx.Value(k); v != nil {
+			fmt.Println("found value:", v)
+			return
+		}
+		fmt.Println("key not found:", k)
+	}
+	k := "language"
+	ctx := context.WithValue(context.Background(), k, "Go")
+
+	f(ctx, k)
+	f(ctx, "color")
+}
+
 func GoroutineDemo() {
-	waitGroupDemo()
+	contextDemo()
 }

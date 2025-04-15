@@ -1,7 +1,6 @@
 package gee
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -12,7 +11,7 @@ type node struct {
 	isWild   bool    // 是否模糊匹配，part 含有 : 或 * 时为true
 }
 
-// 第一个匹配成功的节点，用于插入
+// 第一个part匹配成功的节点，用于插入
 func (n *node) matchChild(part string) *node {
 	for _, child := range n.children {
 		if child.part == part || child.isWild {
@@ -33,7 +32,9 @@ func (n *node) matchChildren(part string) []*node {
 	return nodes
 }
 
+// /hello/:name, [hello, :name], 0
 func (n *node) insert(pattern string, parts []string, height int) {
+	// 最后一个part，直接赋值一下pattern就退出
 	if len(parts) == height {
 		n.pattern = pattern
 		return
@@ -69,8 +70,10 @@ func (n *node) search(parts []string, height int) *node {
 	return nil
 }
 
-// Only one * is allowed
-// 解析pattern返回parts
+// parsePattern Only one * is allowed
+// /abc/efg -> [abc,efg]
+// /abc/:name -> [abc,:name]
+// /abc/*name/efg -> [abc, *name]
 func parsePattern(pattern string) []string {
 	vs := strings.Split(pattern, "/")
 
@@ -84,8 +87,4 @@ func parsePattern(pattern string) []string {
 		}
 	}
 	return parts
-}
-
-func TestPrefixTree() {
-	fmt.Println(parsePattern("/abc/efg/*"))
 }
