@@ -90,18 +90,21 @@ func waitGroupDemo() {
 }
 
 func contextDemo() {
-	f := func(ctx context.Context, k string) {
-		if v := ctx.Value(k); v != nil {
-			fmt.Println("found value:", v)
-			return
-		}
-		fmt.Println("key not found:", k)
-	}
-	k := "language"
-	ctx := context.WithValue(context.Background(), k, "Go")
+	//f := func(ctx context.Context, k string) {
+	//	if v := ctx.Value(k); v != nil {
+	//		fmt.Println("found value:", v)
+	//		return
+	//	}
+	//	fmt.Println("key not found:", k)
+	//}
+	//k := "language"
+	//ctx := context.WithValue(context.Background(), k, "Go")
+	//
+	//f(ctx, k)
+	//f(ctx, "color")
 
-	f(ctx, k)
-	f(ctx, "color")
+	ctx, cFunc := context.WithCancel(context.Background())
+
 }
 
 func GoroutineDemo() {

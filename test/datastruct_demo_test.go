@@ -43,3 +43,7 @@ func TestTrieTree(t *testing.T) {
 func TestTimerDemo(t *testing.T) {
 	basic.TimerDemo()
 }
+
+func TestHttpClientDemo(t *testing.T) {
+	basic.HttpClientDemo()
+}
